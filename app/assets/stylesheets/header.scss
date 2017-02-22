@@ -1,0 +1,31 @@
+header {
+  padding: 0px;
+
+  div.text-center {
+    padding: 30px 0 30px;
+  }
+  
+  .links {
+    position: absolute;
+    margin: 0;
+    top: 10px;
+    right: 20px;
+  }
+
+  h2, h4 {
+    text-transform: uppercase;
+    margin: 0; 
+  }
+
+  .btn {
+    color: #fff;
+    background: linear-gradient(to top, #D0AB38, #BB690E);
+    border: none;
+    opacity: .6;
+
+    &:hover {
+      color: #fff;
+      opacity: 1;
+    }
+  }
+} 

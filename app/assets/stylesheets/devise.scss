@@ -1,0 +1,22 @@
+.devise {
+  .btn { width: 100%; }
+
+  .field { margin-bottom: 5px; }
+
+  .links {
+    padding-top: 20px;
+    .btn { margin-bottom: 5px; }
+  }
+}
+
+#error_explanation {
+  h2 { display: none; }
+
+  ul {
+    position: absolute;
+    top: -65px;
+    list-style: none;
+
+    li { color: red; }
+  }
+}

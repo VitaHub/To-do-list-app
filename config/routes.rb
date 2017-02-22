@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   devise_scope :user do
     get "sign_up" => "devise/registrations#new", as: "new_user_registration"
   end
-  devise_for :users, skip: [:sessions]
+  devise_for :users, skip: [:sessions], 
+    controllers: { :omniauth_callbacks => "users/omniauth_callbacks" }
   as :user do
     get 'sign_in', to: 'devise/sessions#new', as: :new_user_session
     post 'sign_in', to: 'devise/sessions#create', as: :user_session

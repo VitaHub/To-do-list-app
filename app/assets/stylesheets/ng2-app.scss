@@ -1,0 +1,103 @@
+#ng2-app {
+
+  /*Section with project name*/
+  .project {
+    position: relative;
+    background: #5082BE; /* Для старых браузров */
+    background: linear-gradient(to top, #385EA2, #5082BE);
+    padding: 10px 110px 10px 52px;
+    color: white;
+
+    &:hover .project-controls { display: block; }
+
+    .project-controls {
+      width: 70px;
+      position: absolute;
+      right: 0px;
+      top: 10px;
+      padding: 0;
+      display: none;
+
+      div {
+        display: inline-block;
+        padding: 0 8px 0;
+        height: 18px;
+        opacity: .6;
+
+        &:hover {
+          opacity: 1;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .fa-calendar {
+      position: absolute;
+      font-size: 20px;
+      opacity: .6;
+      color: #000;
+      left: 17px;
+      top: 9px;
+    }
+  }
+
+  /* Modal-window */
+  .modal-footer,
+  .modal-header { display: none; }
+  .modal-dialog { top: 40vh; }
+  .modal-content { border-radius: 0; }
+
+  /* Modal-window for project */
+  #project-modal {
+    .modal-body {
+      background: #5082BE; /* Для старых браузров */
+      background: linear-gradient(to top, #385EA2, #5082BE);
+    }
+
+    form.input-group {
+      .btn {
+        width: 120px;
+        font-size: 14px;
+        line-height: 14px;
+        height: 32px;
+        background: linear-gradient(to top, #2F4A6A, #315177);
+        color: #fff;
+        border: none;
+      }
+
+      input {
+        font-size: 14px;
+        height: 32px;
+        padding: 5px 10px;
+        resize: none;
+      }
+    }
+  }
+
+
+
+
+
+  /* Add TODO list btn */
+  .btn.add-todo-btn,
+  .btn.add-todo-btn:active,
+  .btn.add-todo-btn:hover {
+    border-radius: 2px;
+    background: linear-gradient(to top, #385EA2, #5082BE);
+    padding-left: 40px;
+    padding-right: 20px;
+    color: #fff;
+    border: none;
+  }
+
+  .add-todo-btn .plus { position: relative; }
+
+  .add-todo-btn i.fa-plus {
+    position: absolute;
+    left: -30px;
+    top: -2px;
+    font-size: 26px;
+    color: #315177;
+  }
+
+}

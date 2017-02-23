@@ -1,0 +1,45 @@
+<div class="content">    
+  <div class="row" *ngIf="projects">
+    <div class="col-md-6 col-md-offset-3">
+      <div  class="todo"
+            *ngFor="let project of projects" id="{{ project.id }}">
+        <section class="project">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+          <span class="name">{{ project.name }}</span>
+
+          <div class="project-controls">
+            <div (click)="editProject(project)"><i 
+                class="fa fa-pencil" style="font-size:16px">
+            </i></div><div (click)="deleteProject(project)"><i 
+                class="fa fa-trash-o" style="font-size:16px"></i></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <button class="btn add-todo-btn" (click)="newProject()">
+      <div class="plus"><i class="fa fa-plus" aria-hidden="true"></i></div>
+      Add TODO List
+    </button>
+  </div>  
+</div>
+
+<modal #projectModal 
+        id="project-modal"
+        (onClose)="proj = false">
+  <modal-content>
+    <project-form *ngIf="proj == true && !!projectId == true" 
+                  on-valueChanged="loadProjects(); 
+                                   projectModal.close()"
+                        projectId="{{ projectId }}"></project-form>
+    <project-form *ngIf="proj == true && projectId == null" 
+                  on-valueChanged="loadProjects(); 
+                                   projectModal.close()"></project-form>
+  </modal-content>
+</modal>
+
+  
+
+

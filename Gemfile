@@ -19,6 +19,7 @@ gem 'devise'
 gem 'omniauth-vkontakte'
 gem 'angular_rails_csrf'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'acts_as_list'
 
 group :development, :test do
   gem 'byebug', platform: :mri

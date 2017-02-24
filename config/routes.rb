@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   root "todo#index"
 
   scope '/api' do
-    resources :projects
+    resources :projects do
+      resources :tasks
+    end
   end
 end

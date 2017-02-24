@@ -1,4 +1,5 @@
 #ng2-app {
+  .content { min-height: calc(100vh - 190px); }
 
   /*Section with project name*/
   .project {
@@ -41,6 +42,188 @@
     }
   }
 
+  /*Section for new task form*/
+  .new-task {
+    background: #D7D7D7; /* Для старых браузров */
+    background: linear-gradient(to top, #CDCDCD, #E0E0E0);
+    padding: 8px 10px;
+
+    .plus {
+      width: 42px;
+      display: table-cell;
+      padding-right: 20px;
+      padding-left: 5px;
+    }
+    
+    i.fa-plus {
+      position: absolute;
+      font-size: 28px;
+      color: green;
+    }
+
+    form.input-group {
+      input {
+        font-size: 12px;
+        height: 28px;
+        padding: 5px 10px;
+        resize: none;
+      }
+
+      .btn {
+        width: 90px;
+        font-size: 12px;
+        line-height: 12px;
+        height: 28px;
+        color: #fff;
+        background: linear-gradient(to top, #2C6F1F, #35A31F);
+      }
+    }
+  }
+
+  /* Section with tasks */
+  .tasks {
+    position: relative;
+    margin: 0px auto 20px;
+    background: #fff;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+    .todo-list {
+      margin: 0;
+
+      &:before {
+        content: '';
+        width: 5px;
+        z-index: 2;
+        border: 1px solid #f2e3df;
+        border-width: 0 1px;
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 45px;   
+      }
+
+      &:after {
+        content: '';
+        border-left: 1px solid #e6ebed;
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        right: 100px;
+      }
+
+      .item {
+        position: relative;
+        padding: 12px 110px 10px 60px;
+        line-height: 21px;
+        font-size: 12px;
+        color: #8b8f97;
+        border-bottom: 1px solid #e6ebed;
+
+        &:last-child {
+          border-bottom: none;
+          border-bottom-right-radius: 10px;
+          border-bottom-left-radius: 10px;
+        }
+
+        &:hover { 
+          background-color: #FCFED5; 
+
+          .todo-controls {
+            display: block;
+          }
+        }
+
+        input[type=checkbox] {
+          display: none;
+
+          &:checked + .toggle:after{
+            opacity: 1;
+          }
+
+          &:checked ~ .task {
+            text-decoration: line-through;
+          }
+        }
+
+        .toggle, 
+        .todo-controls div { cursor: pointer; }
+
+        .todo-controls {
+          width: 100px;
+          position: absolute;
+          right: 0px;
+          top: 12px;
+          padding: 0 5px 0;
+          display: none;
+
+          i {
+            width: 20px;
+            text-align: center;
+            opacity: .6;            
+
+            .prioritize { cursor: move; }
+          }
+
+          div {
+            display: inline-block;
+            padding: 0 4px 0;
+            border-right: 1px solid #e6ebed;
+            height: 18px; 
+            
+            &:hover i { opacity: 1; }
+            &:last-child { border-right: none; }
+          }
+        }
+
+        .toggle {
+          &:after {
+            content: '';
+            position: absolute;
+            top: 18px;
+            left: 19px;
+            border: 2px solid #aaa;
+            border-top: none;
+            border-right: none;
+            transform: rotate(-45deg);
+            height: 5px;
+            width: 7px;
+            opacity: 0;
+          }
+
+          &:before {
+            content: '';
+            width: 15px;
+            height: 15px;
+            background: #faf9f9;
+            border: 1px solid #6bb3ca;
+            border-radius: 2px;
+            position: absolute;
+            top: 14px;
+            left: 15px;
+            box-shadow: 0 1px 1px #dfecf4;
+            -moz-box-shadow: 0 1px 1px #dfecf4;
+            -webkit-box-shadow: 0 1px 1px #dfecf4;
+          }
+
+          &:hover:before {
+            -webkit-box-shadow: 0 0 3px #6bb3ca;
+            -moz-box-shadow: 0 0 3px #6bb3ca;
+            box-shadow: 0 0 3px #6bb3ca;
+          }
+        }
+      }
+
+      .done .toggle:before,
+      .toggle:active:before {
+        border-color: #c0c0c0 #ccc #d8d8d8;
+        -webkit-box-shadow: inset 0 1px rgba(0, 0, 0, 0.05), inset 0 5px 5px rgba(0, 0, 0, 0.05);
+        -moz-box-shadow: inset 0 1px rgba(0, 0, 0, 0.05), inset 0 5px 5px rgba(0, 0, 0, 0.05);
+        box-shadow: inset 0 1px rgba(0, 0, 0, 0.05), inset 0 5px 5px rgba(0, 0, 0, 0.05);        
+      }
+    }
+  }
+
   /* Modal-window */
   .modal-footer,
   .modal-header { display: none; }
@@ -74,9 +257,37 @@
     }
   }
 
+  /* Modal window for task */
+  #task-modal {
+    .plus {
+      display: none; 
+    }
 
+    .modal-body {
+      background: #D7D7D7; /* Для старых браузров */
+      background: linear-gradient(to top, #CDCDCD, #E0E0E0);
+      padding: 10px 15px;
+    }
 
+    form.input-group {
+      input {
+        font-size: 12px;
+        height: 28px;
+        padding: 5px 10px;
+        resize: none;
+      }
 
+      .btn {
+        width: 90px;
+        font-size: 12px;
+        line-height: 12px;
+        height: 28px;
+        background: linear-gradient(to top, #2C6F1F, #35A31F);
+        color: #fff;
+        border: none;
+      }
+    }
+  }
 
   /* Add TODO list btn */
   .btn.add-todo-btn,
@@ -101,3 +312,109 @@
   }
 
 }
+
+
+
+ /* Section with tasks */
+
+/*
+.gu-mirror:before {
+  content: '';
+  width: 5px;
+  z-index: 2;
+  border: 1px solid #f2e3df;
+  border-width: 0 1px;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 45px;
+}
+
+.gu-mirror:after {
+  content: '';
+  border-left: 1px solid #e6ebed;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 100px;
+}
+
+.gu-mirror {
+  // position: relative;
+
+}
+
+.gu-mirror {
+  
+
+  input[type=checkbox] {
+    display: none;
+  }
+
+  input[type=checkbox]:checked + .toggle:after{
+    opacity: 1;
+  }
+
+  input[type=checkbox]:checked ~ .task{
+    text-decoration: line-through;
+  }
+
+  .todo-controls i.prioritize { cursor: move; }
+
+  .toggle:after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 19px;
+    border: 2px solid #aaa;
+    border-top: none;
+    border-right: none;
+
+    transform: rotate(-45deg);
+    height: 5px;
+    width: 7px;
+    opacity: 0;
+  }
+}
+
+.gu-mirror .toggle:before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: #faf9f9;
+    border: 1px solid #6bb3ca;
+    border-radius: 2px;
+    position: absolute;
+    top: 14px;
+    left: 15px;
+    box-shadow: 0 1px 1px #dfecf4;
+    -moz-box-shadow: 0 1px 1px #dfecf4;
+    -webkit-box-shadow: 0 1px 1px #dfecf4;
+}
+
+.gu-mirror {
+  .todo-controls {
+    width: 100px;
+    position: absolute;
+    right: 0px;
+    top: 12px;
+    padding: 0 5px 0;
+  }
+
+  .todo-controls i {
+    width: 20px;
+    text-align: center;
+    opacity: .6;
+  }
+
+  .todo-controls div {
+    display: inline-block;
+    padding: 0 4px 0;
+    border-right: 1px solid #e6ebed;
+    height: 18px;
+  }
+
+  .todo-controls div:last-child { border-right: none; }
+  
+}
+*/

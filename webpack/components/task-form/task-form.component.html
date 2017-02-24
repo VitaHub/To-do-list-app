@@ -1,0 +1,21 @@
+<form (ngSubmit)="onSubmit()" class="input-group">
+  <div class="plus">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+  </div>
+  <div *ngIf="model.name == ''">
+    <input [(ngModel)]="model.name" 
+          (click)="setFocusedProject(projectId)"
+          (focus)="isFocused(projectId)"
+          type="text" name="name" id="task-for-proj-{{projectId}}" 
+          placeholder="Start typing here to create task..." 
+          class="form-control" required></div>
+  <div *ngIf="model.name != ''">
+    <input #taskInput [(ngModel)]="model.name"
+          type="text" name="name" id="name" 
+          placeholder="Start typing here to create task..." 
+          class="form-control" required></div>
+  <span class="input-group-btn">
+    <button *ngIf="model.name == ''" type="submit" class="btn">Add Task</button>
+    <button *ngIf="model.name != ''" type="submit" class="btn">Save Task</button>
+  </span>
+</form>

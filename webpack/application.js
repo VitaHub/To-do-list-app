@@ -18,6 +18,8 @@ var ngxModal = require("ngx-modal");
 var ProjectsComponent = require('./components/projects/projects.component');
 var ProjectFormComponent = 
   require('./components/project-form/project-form.component');
+var TaskFormComponent = 
+  require('./components/task-form/task-form.component');
 
 var AppModule = ng.core.NgModule({
   imports: [ 
@@ -29,7 +31,8 @@ var AppModule = ng.core.NgModule({
   ],
   declarations: [ 
     ProjectsComponent,
-    ProjectFormComponent
+    ProjectFormComponent,
+    TaskFormComponent
   ],
   bootstrap: [ ProjectsComponent ]
 }).Class({

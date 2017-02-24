@@ -1,6 +1,8 @@
 <div class="content">    
   <div class="row" *ngIf="projects">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-6 col-md-offset-3
+                col-sm-8 col-sm-offset-2
+                col-xs-10 col-xs-offset-1">
       <div  class="todo"
             *ngFor="let project of projects" id="{{ project.id }}">
         <section class="project">
@@ -12,6 +14,35 @@
                 class="fa fa-pencil" style="font-size:16px">
             </i></div><div (click)="deleteProject(project)"><i 
                 class="fa fa-trash-o" style="font-size:16px"></i></div>
+          </div>
+        </section>
+        <section class="new-task">
+          <task-form on-valueChanged="loadTasks($event)"
+                projectId="{{ project.id }}"></task-form>
+        </section>
+        <section class="tasks">
+            
+          <div class="todo-list" *ngIf="project.tasks" 
+                                [dragula]='project.id'
+                                [dragulaModel]='project.tasks'
+                                [dragulaOptions]='options'>
+            <div class="item" 
+                  *ngFor="let task of project.tasks" id="{{ task.id }}">
+              <input type="checkbox" id="task{{task.id}}"
+                      [checked]="task.done"
+                      (change)="markTask(project.id, task)"/> 
+              <label class="toggle" for="task{{task.id}}"></label>
+              <span class="task">{{ task.name }}</span>
+
+              <div class="todo-controls">
+                <div><i class="fa fa-unsorted prioritize" style="font-size:16px">
+                </i></div><div (click)="editTask(project, task)"><i 
+                    class="fa fa-pencil" style="font-size:16px">
+                </i></div><div (click)="deleteTask(project, task)"><i 
+                    class="fa fa-trash-o" style="font-size:16px"></i></div>
+              </div>
+            </div>
+
           </div>
         </section>
       </div>
@@ -40,6 +71,13 @@
   </modal-content>
 </modal>
 
-  
-
-
+<modal #taskModal
+        id="task-modal"
+        (onClose)="task = false">
+    <modal-content>
+      <task-form  *ngIf="task == true && !!projectId == true && !!taskId == true"
+        on-valueChanged="loadProjects(); taskModal.close()"
+        projectId="{{ projectId }}"
+        taskId="{{ taskId }}"></task-form>
+    </modal-content>
+</modal>

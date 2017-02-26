@@ -21,9 +21,15 @@ gem 'angular_rails_csrf'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'acts_as_list'
 
+group :test do
+  gem 'shoulda-matchers',       '~> 3.1'
+end
+
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'dotenv-rails'
+  gem 'rspec-rails',            '~> 3.5'
+  gem 'factory_girl_rails'
 end
 
 group :development do

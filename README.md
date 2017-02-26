@@ -1,24 +1,17 @@
-# README
+### To-do list app
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[Demo](http://simple-todo-app.herokuapp.com)
 
-Things you may want to cover:
+#### Used technologies
+ - BackEnd: Ruby/Rails 5;
+ - FrontEnd: JavaScript/Angular 2;
+ - Database: PostgreSQL 9.5;
+ - Authentication: Devise gem;
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+#### Capabilities
+ - sign in/sign up by email/password or VKontakte;
+ - create/update/delete projects;
+ - add tasks to projects;
+ - update/delete tasks;
+ - prioritize tasks into a project (drag & drop);
+ - mark task as done.

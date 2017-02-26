@@ -27,29 +27,33 @@
       </div>
     </header>
 
-    <% unless user_signed_in? %>
-      <div class="info">
-        <div class="row">
-          <div class="col-md-4 col-md-offset-4
-                      col-sm-6 col-sm-offset-3
-                      col-xs-8 col-xs-offset-2">
-            <% if notice %>
-              <div class="alert alert-info" role="alert">
-                <%= notice %>
-              </div>
-            <% end %>
+    <div class="content">
 
-            <% if alert && alert.length > 0 %>
-              <div class="alert alert-danger" role="alert">
-                <%= alert %>
-              </div>
-            <% end %>
+      <% unless user_signed_in? %>
+        <div class="info">
+          <div class="row">
+            <div class="col-md-4 col-md-offset-4
+                        col-sm-6 col-sm-offset-3
+                        col-xs-8 col-xs-offset-2">
+              <% if notice %>
+                <div class="alert alert-info" role="alert">
+                  <%= notice %>
+                </div>
+              <% end %>
+
+              <% if alert && alert.length > 0 %>
+                <div class="alert alert-danger" role="alert">
+                  <%= alert %>
+                </div>
+              <% end %>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
 
-    <%= yield %>
+      <%= yield %>
+
+    </div>
 
     <footer>
       <h5 class="text-center author">&copy; Vitalii Hubenko</h5>

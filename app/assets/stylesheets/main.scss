@@ -5,11 +5,6 @@ body, html {
 }
 
 body {
-  // color: #404040;
-  // font-family: 'Lucida Grande', Verdana, sans-serif;
-  // font-size: 13px;
-  // font-weight: normal;
-  // line-height: 20px;
   background: #ba680f 
     url(images/background.png) 
     repeat-x 0 0;
@@ -17,3 +12,4 @@ body {
   background-attachment: fixed;
 }
 
+.content { min-height: calc(100vh - 190px); }

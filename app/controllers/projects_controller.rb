@@ -36,7 +36,7 @@ class ProjectsController < ApplicationController
 
     def set_project
       @project = Project.find(params[:id])
-      raise SecurityError unless @project.user == current_user
+      raise SecurityError, "Invalid user!" unless @project.user == current_user
     end
 
     def project_params

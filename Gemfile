@@ -29,6 +29,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'dotenv-rails'
   gem 'rspec-rails',            '~> 3.5'
+  gem 'rails-controller-testing'
   gem 'factory_girl_rails'
 end
 

@@ -46,7 +46,7 @@ class TasksController < ApplicationController
 
     def set_project
       @project = Project.find(params[:project_id])
-      raise SecurityError unless @project.user == current_user
+      raise SecurityError, "Invalid user!" unless @project.user == current_user
     end
 
     def set_task

@@ -31,6 +31,9 @@ group :development, :test do
   gem 'rspec-rails',            '~> 3.5'
   gem 'rails-controller-testing'
   gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'selenium-webdriver',     '~> 3.2', '>= 3.2.1'
+  gem 'database_cleaner'
 end
 
 group :development do

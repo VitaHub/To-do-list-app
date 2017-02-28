@@ -6,7 +6,31 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'capybara/rails'
 
+# Capybara.default_driver = :selenium
+
+Capybara.register_driver :selenium_chrome do |app|
+  Capybara::Selenium::Driver.new(app, :browser => :chrome) #, profile: profile)
+end
+
+Capybara.current_driver = :selenium_chrome
+=begin
+module CapybaraExtension
+  def drag_by(right_by, down_by)
+    base.drag_by(right_by, down_by)
+  end
+end
+
+module CapybaraSeleniumExtension
+  def drag_by(right_by, down_by)
+    driver.browser.action.drag_and_drop_by(native, right_by, down_by).perform 
+  end
+end
+
+::Capybara::Selenium::Node.send :include, CapybaraSeleniumExtension
+::Capybara::Node::Element.send :include, CapybaraExtension
+=end
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -34,7 +58,8 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
+  config.infer_spec_type_from_file_location!
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -55,6 +80,50 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.before(:suite) do
+    puts "Starting webpack-dev-server"
+    unless ENV["CI"] == 'true'
+    $pid = spawn("./node_modules/.bin/webpack-dev-server " +
+                 "--config config/webpack.config.js --quiet")
+    end
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each, :type => :feature) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
+  config.after(:suite) do
+    unless ENV["CI"] == 'true'
+      puts
+      puts "Killing webpack-dev-server"
+      Process.kill("HUP",$pid)
+      begin
+        Timeout.timeout(2) do
+          Process.wait($pid,0)
+        end
+      rescue => Timeout::Error
+        Process.kill(9,$pid)
+      end
+    end
+  end
 end
 
 Shoulda::Matchers.configure do |config|

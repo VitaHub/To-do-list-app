@@ -2,16 +2,16 @@
     <div class="col-md-6 col-md-offset-3
                 col-sm-8 col-sm-offset-2
                 col-xs-10 col-xs-offset-1">
-      <div  class="todo"
+      <div class="todo"
             *ngFor="let project of projects" id="{{ project.id }}">
         <section class="project">
           <i class="fa fa-calendar" aria-hidden="true"></i>
           <span class="name">{{ project.name }}</span>
 
           <div class="project-controls">
-            <div (click)="editProject(project)"><i 
+            <div class="edit" (click)="editProject(project)"><i 
                 class="fa fa-pencil" style="font-size:16px">
-            </i></div><div (click)="deleteProject(project)"><i 
+            </i></div><div class="delete" (click)="deleteProject(project)"><i 
                 class="fa fa-trash-o" style="font-size:16px"></i></div>
           </div>
         </section>
@@ -35,9 +35,9 @@
 
               <div class="todo-controls">
                 <div><i class="fa fa-unsorted prioritize" style="font-size:16px">
-                </i></div><div (click)="editTask(project, task)"><i 
+                </i></div><div class="edit" (click)="editTask(project, task)"><i 
                     class="fa fa-pencil" style="font-size:16px">
-                </i></div><div (click)="deleteTask(project, task)"><i 
+                </i></div><div class="delete" (click)="deleteTask(project, task)"><i 
                     class="fa fa-trash-o" style="font-size:16px"></i></div>
               </div>
             </div>

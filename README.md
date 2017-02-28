@@ -7,6 +7,7 @@
  - FrontEnd: JavaScript/Angular 2;
  - Database: PostgreSQL 9.5;
  - Authentication: Devise gem;
+ - Tests: RSpec/Capybara.
 
 #### Capabilities
  - sign in/sign up by email/password or VKontakte;

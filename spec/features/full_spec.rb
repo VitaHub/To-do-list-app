@@ -30,7 +30,7 @@ feature "Simple TODO App" do
     click_button "Add TODO List"
     within "#project-modal" do
       fill_in "name", with: "New project"
-      click_button "Save TODO list"
+      click_button "Add TODO list"
     end
     expect(page).to have_content("New project")
     expect(page.all("div.todo").count).to eq(1)
@@ -39,7 +39,7 @@ feature "Simple TODO App" do
     within page.all("div.todo")[0] do
       (1..3).each do |n|
         fill_in "name", with: "Task 0#{n}"
-        click_button "Save Task"
+        click_button "Add Task"
         expect(page).to have_content("Task 0#{n}")
       end
       expect(page.all(".tasks .item").count).to eq(3)

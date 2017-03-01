@@ -15,7 +15,8 @@
           placeholder="Start typing here to create task..." 
           class="form-control" required></div>
   <span class="input-group-btn">
-    <button *ngIf="model.name == ''" type="submit" class="btn">Add Task</button>
-    <button *ngIf="model.name != ''" type="submit" class="btn">Save Task</button>
+    <button *ngIf="mode == 'new'" type="submit" class="btn">Add Task</button>
+    <button *ngIf="mode == 'edit'" type="submit" class="btn">
+      Save Task</button>
   </span>
 </form>

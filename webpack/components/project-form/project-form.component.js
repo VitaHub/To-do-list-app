@@ -10,7 +10,7 @@ var ProjectFormComponent = ng.core.Component({
   template: require("./project-form.component.html"),
   providers: [ProjectService],
   outputs: ["valueChanged"],
-  inputs: ["projectId"],
+  inputs: ["projectId", "mode"],
   queries: {
     projectInput: new ng.core.ViewChild('projectInput')
   }

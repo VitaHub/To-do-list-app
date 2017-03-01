@@ -3,7 +3,8 @@
     placeholder="Start typing here to create new TODO list..." 
     class="form-control project-form" required>
   <span class="input-group-btn">
-    <button *ngIf="model.name != ''" type="submit" class="btn btn-default">Save TODO list</button>
-    <button *ngIf="model.name == ''" type="submit" class="btn btn-default">Add TODO list</button>
+    <button *ngIf="mode == 'edit'" type="submit" class="btn btn-default">
+      Save TODO list</button>
+    <button *ngIf="mode == 'new'" type="submit" class="btn btn-default">Add TODO list</button>
   </span>
 </form>

@@ -10,7 +10,7 @@ var TaskFormComponent = ng.core.Component({
   template: require("./task-form.component.html"),
   providers: [TaskService],
   outputs: ["valueChanged"],
-  inputs: ["taskId", "projectId"],
+  inputs: ["taskId", "projectId", "mode"],
   queries: {
     taskInput: new ng.core.ViewChild('taskInput')
   }
@@ -44,7 +44,7 @@ var TaskFormComponent = ng.core.Component({
       }, error => {
         window.alert(error);
       });
-    }
+    };
   },
 
   setFocusedProject: function(projectId) {

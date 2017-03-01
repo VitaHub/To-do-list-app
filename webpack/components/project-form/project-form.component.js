@@ -50,7 +50,7 @@ var ProjectFormComponent = ng.core.Component({
     this.ProjectService.saveProject(this.model)
     .subscribe(response => { 
       this.newModel();
-      this.valueChanged.emit();
+      this.valueChanged.emit({project: response.json()});
     }, error => {
       window.alert(error);
     });

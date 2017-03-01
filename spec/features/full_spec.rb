@@ -57,7 +57,7 @@ feature "Simple TODO App" do
 
     # Editing first task
     within ".tasks" do
-      page.all(".item")[0].tap(&:hover).find("div.edit").click
+      page.all(".item")[0].find("span.task").click
     end
     within "#task-modal" do
       fill_in "name", with: "Edited task"

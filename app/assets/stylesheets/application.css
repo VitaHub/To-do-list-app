@@ -12,4 +12,6 @@
  *
  *= require_tree .
  *= require_self
+ *= require primeng.min.css
+ *= require theme.css
  */

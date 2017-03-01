@@ -1,4 +1,5 @@
 require("bootstrap/dist/css/bootstrap.css");
+
 var coreJS = require('core-js');
 var zoneJS = require('zone.js');
 var reflectMetadata = require('reflect-metadata');
@@ -14,6 +15,7 @@ var ng = {
 
 var dragula = require('ng2-dragula');
 var ngxModal = require("ngx-modal");
+var primeng = require('primeng/primeng');
 
 var ProjectsComponent = require('./components/projects/projects.component');
 var ProjectFormComponent = 
@@ -27,7 +29,8 @@ var AppModule = ng.core.NgModule({
     ng.forms.FormsModule,
     ng.http.HttpModule,
     dragula.DragulaModule,
-    ngxModal.ModalModule
+    ngxModal.ModalModule,
+    primeng.CalendarModule
   ],
   declarations: [ 
     ProjectsComponent,

@@ -24,7 +24,8 @@ var ProjectsComponent = ng.core.Component({
   ],
   queries: { 
     taskModal: new ng.core.ViewChild('taskModal'),
-    projectModal: new ng.core.ViewChild('projectModal')
+    projectModal: new ng.core.ViewChild('projectModal'),
+    deadlineModal: new ng.core.ViewChild('deadlineModal')
   }
 }).Class({
   constructor: [
@@ -50,13 +51,22 @@ var ProjectsComponent = ng.core.Component({
       };
       this.proj = false;
       this.task = false;
+      this.deadline = new Date();
+      this.today = new Date();
       this.projectId = null;
       this.taskId = null;
+
+      this.taskIndex = null;
+      this.projectIndex = null;
     }
   ],
 
   ngOnInit: function() {
     this.loadProjects();
+  },
+
+  addProject: function(e) {
+    this.projects.unshift(e.project);
   },
 
   loadProjects: function() {
@@ -74,46 +84,81 @@ var ProjectsComponent = ng.core.Component({
     this.projectModal.open();
   },
 
-  editProject: function(project) {
+  editProject: function(project, pi) {
+    this.projectIndex = pi;
     this.proj = true;
     this.projectId = project.id;
     this.projectModal.open();
   },
 
-  deleteProject: function(project) {
+  updateProject: function(e) {
+    this.projects[this.projectIndex].name = e.project.name;
+  },
+
+  deleteProject: function(project, pi) {
     if (confirm("Are U sure?") === true) {
       this.ProjectService.deleteProject(project)
       .subscribe(response => { 
-        this.loadProjects(); 
+        this.projects.splice(pi, 1);
       });
     };
   },
 
-  loadTasks: function($event) {
-    this.TaskService.getList($event.projectId)
-    .subscribe(data => {
-      this.projects.forEach(function(item) {
-        if (item.id == $event.projectId) {
-          item.tasks = data.json();
-        };
-      });
-    }, error => {
-      window.alert(error);
-    });
+  addTask: function(e, pi) {
+    this.projects[pi].tasks.push(e.task);
   },
 
-  editTask: function(project, task) {
+  editTask: function(project, task, pi, ti) {
+    this.projectIndex = pi;
+    this.taskIndex = ti;
     this.task = true;
     this.projectId = project.id;
     this.taskId = task.id;
     this.taskModal.open();
   },
 
-  markTask: function(projectId, task) {
+  updateTask: function(e) {
+    this.projects[this.projectIndex].tasks[this.taskIndex] = e.task;
+  },
+
+  markTask: function(projectId, task, pi, ti) {
     this.TaskService.markTask(projectId, task)
     .subscribe(response => {
-      this.loadProjects();
+      this.projects[pi].tasks[ti] = response.json();
     });
+  },
+
+  editDeadline: function(project, task, pi, ti) {
+    if (task.deadline == null) {
+      delete this.deadline;
+    } else {
+      this.deadline = new Date(task.deadline);
+    };
+    this.projectIndex = pi;
+    this.taskIndex = ti;
+    this.projectId = project.id;
+    this.taskId = task.id;
+    this.deadlineModal.open();
+  },
+
+  setDeadline: function(date) {
+    this.TaskService.setDeadline(this.projectId, 
+      this.taskId, this.formatDate(date))
+        .subscribe(response => {
+          this.deadlineModal.close();
+          this.projects[this.projectIndex].tasks[this.taskIndex] = response.json();
+        }, error => {
+          window.alert(error);
+        });
+  },
+
+  beforeDeadline: function(deadline) {
+    dl = new Date(deadline);
+    if (dl >= this.today) {
+      return true;
+    } else {
+      return false;
+    };
   },
 
   reorderTasks: function(projectId, taskId) {
@@ -127,13 +172,17 @@ var ProjectsComponent = ng.core.Component({
       });
   },
 
-  deleteTask: function(project, task) {
+  deleteTask: function(project, task, pi, ti) {
     if (confirm("Are U sure?") === true) {
       this.TaskService.deleteTask(project, task)
       .subscribe(response => { 
-        this.loadProjects(); 
+        this.projects[pi].tasks.splice(ti, 1);
       });
     };
+  },
+
+  formatDate: function(date) {
+    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
   }
 
 });

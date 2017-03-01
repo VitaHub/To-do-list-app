@@ -38,6 +38,15 @@ var TaskService = ng.core.Injectable()
     return this.http.patch('/api/projects/' + projectId + 
       '/tasks/' + task.id + '.json', body);
   },
+  setDeadline: function(projectId, taskId, date) {
+    var params = { 
+      projectId: projectId, 
+      taskId: taskId,
+      newDeadline: date
+    };
+    return this.http.patch('/api/projects/' + projectId + 
+      '/tasks/' + taskId + '.json', params);
+  },
   reorderTasks: function(projectId, taskId, taskIndex) {
     var params = { 
       projectId: projectId, 

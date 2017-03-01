@@ -44,6 +44,19 @@
     &:checked ~ .task {
       text-decoration: line-through;
     }
+
+    &:checked ~ .deadline { 
+      color: green; 
+      span.red { color: green; }
+    }
+  }
+
+  .deadline {
+    position: absolute;
+    top: -2px;
+    right: 103px;
+    font-size: 10px;
+    .red { color: red; } 
   }
 
   .todo-controls {

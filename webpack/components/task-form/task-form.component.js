@@ -78,7 +78,8 @@ var TaskFormComponent = ng.core.Component({
     this.TaskService.saveTask(this.projectId, this.model)
     .subscribe(response => { 
       this.newModel();
-      this.valueChanged.emit({ projectId: this.projectId });
+      this.valueChanged.emit({ projectId: this.projectId,
+                                task: response.json() });
       this.focusedProject = null;
     }, error => {
       window.alert(error);

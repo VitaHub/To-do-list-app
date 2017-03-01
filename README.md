@@ -15,4 +15,5 @@
  - add tasks to projects;
  - update/delete tasks;
  - prioritize tasks into a project (drag & drop);
+ - choose deadline for a task;
  - mark task as done.

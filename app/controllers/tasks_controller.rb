@@ -29,6 +29,13 @@ class TasksController < ApplicationController
       project.tasks.find(params[:taskId]).insert_at(new_position)
 
       render json: "reordered"
+    elsif params[:newDeadline]
+      @task.deadline = params[:newDeadline]
+      if @task.save
+        render json: @task
+      else
+        render json: @task.errors, status: :unprocessable_entity
+      end
     else
       if @task.update(task_params)
         render json: @task

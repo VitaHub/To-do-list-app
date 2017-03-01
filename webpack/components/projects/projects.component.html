@@ -3,20 +3,20 @@
                 col-sm-8 col-sm-offset-2
                 col-xs-10 col-xs-offset-1">
       <div class="todo"
-            *ngFor="let project of projects" id="{{ project.id }}">
+            *ngFor="let project of projects; let pi = index" id="{{ project.id }}">
         <section class="project">
           <i class="fa fa-calendar" aria-hidden="true"></i>
           <span class="name">{{ project.name }}</span>
 
           <div class="project-controls">
-            <div class="edit" (click)="editProject(project)"><i 
+            <div class="edit" (click)="editProject(project, pi)"><i 
                 class="fa fa-pencil" style="font-size:16px">
-            </i></div><div class="delete" (click)="deleteProject(project)"><i 
+            </i></div><div class="delete" (click)="deleteProject(project, pi)"><i 
                 class="fa fa-trash-o" style="font-size:16px"></i></div>
           </div>
         </section>
         <section class="new-task">
-          <task-form on-valueChanged="loadTasks($event)"
+          <task-form on-valueChanged="addTask($event, pi)"
                 projectId="{{ project.id }}"></task-form>
         </section>
         <section class="tasks">
@@ -26,18 +26,25 @@
                                 [dragulaModel]='project.tasks'
                                 [dragulaOptions]='options'>
             <div class="item" 
-                  *ngFor="let task of project.tasks" id="{{ task.id }}">
+                  *ngFor="let task of project.tasks; let ti = index" 
+                    id="{{ task.id }}">
               <input type="checkbox" id="task{{task.id}}"
                       [checked]="task.done"
-                      (change)="markTask(project.id, task)"/> 
+                      (change)="markTask(project.id, task, pi, ti)"/> 
               <label class="toggle" for="task{{task.id}}"></label>
-              <span class="task">{{ task.name }}</span>
+              <span class="task" (click)="editTask(project, task, pi, ti)">
+                {{ task.name }}</span>
+
+              <div *ngIf="task.deadline" class="deadline">
+                <span [ngClass]="{'red': !beforeDeadline(task.deadline) }">
+                  {{ task.deadline }}</span>
+              </div>
 
               <div class="todo-controls">
                 <div><i class="fa fa-unsorted prioritize" style="font-size:16px">
-                </i></div><div class="edit" (click)="editTask(project, task)"><i 
-                    class="fa fa-pencil" style="font-size:16px">
-                </i></div><div class="delete" (click)="deleteTask(project, task)"><i 
+                </i></div><div class="edit" (click)="editDeadline(project, task, pi, ti)"><i 
+                    class="fa fa-clock-o" style="font-size:16px">
+                </i></div><div class="delete" (click)="deleteTask(project, task, pi, ti)"><i 
                     class="fa fa-trash-o" style="font-size:16px"></i></div>
               </div>
             </div>
@@ -60,11 +67,11 @@
         (onClose)="proj = false">
   <modal-content>
     <project-form *ngIf="proj == true && !!projectId == true" 
-                  on-valueChanged="loadProjects(); 
+                  on-valueChanged="updateProject($event); 
                                    projectModal.close()"
                         projectId="{{ projectId }}"></project-form>
     <project-form *ngIf="proj == true && projectId == null" 
-                  on-valueChanged="loadProjects(); 
+                  on-valueChanged="addProject($event); 
                                    projectModal.close()"></project-form>
   </modal-content>
 </modal>
@@ -74,8 +81,16 @@
         (onClose)="task = false">
     <modal-content>
       <task-form  *ngIf="task == true && !!projectId == true && !!taskId == true"
-        on-valueChanged="loadProjects(); taskModal.close()"
+        on-valueChanged="updateTask($event); taskModal.close()"
         projectId="{{ projectId }}"
         taskId="{{ taskId }}"></task-form>
+    </modal-content>
+</modal>
+
+<modal #deadlineModal id="deadline-modal" class="text-center">
+    <modal-content>
+        <p-calendar (onSelect)="setDeadline($event)" 
+                    [(ngModel)]="deadline" 
+                    [inline]="true"></p-calendar>
     </modal-content>
 </modal>

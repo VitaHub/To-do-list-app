@@ -1,4 +1,8 @@
 #ng2-app {
+  .todo { 
+    max-width: 550px; 
+    margin: auto;
+  }
 
   /*Section with project name*/
   .project {
@@ -335,4 +339,10 @@
     color: #315177;
   }
 
+}
+
+
+  /* Scroll behind modal */
+html body.container.modal-open { 
+  overflow: auto;
 }
